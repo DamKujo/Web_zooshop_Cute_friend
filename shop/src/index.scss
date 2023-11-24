@@ -1,12 +1,15 @@
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Vollkorn', serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(216, 255, 144);
+}
+
+*{
+  font-family: 'Vollkorn', serif;
 }
 
 .wrapper {
@@ -34,5 +37,64 @@ header {
 .content {
   h1{
     margin: 0;
+  }
+}
+
+.card {
+  border: 1px solid #e6e2e2;
+  padding: 20px;
+  width: 230px;
+  border-radius: 40px;
+  margin-right: 50px;
+  transition: box-shadow 300ms ease-in-out, transform 300ms ease-in-out;
+
+  &:hover{
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.239);
+    transform: translateY(-5px);
+  }
+
+  .favorite {
+    position: absolute;
+    cursor: pointer;
+  }
+
+  h5{
+    font-weight: 400;
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  b{
+    font-size: 14px;
+  }
+
+  button {
+    background: #fff;
+    border: 1px solid #e6e2e2;
+    box-sizing: border-box;
+    border-radius: 8px;
+    cursor: pointer;
+
+    width: 32px;
+    height: 32px;
+  }
+
+  /*img{
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 5px;
+  }*/
+}
+
+.search-block{
+  border: 1px solid #e6e2e2;
+  border-radius: 20px;
+  padding: 0 15px;
+
+  input{
+    border: 0;
+    padding: 12px;
+    font-size: 16px;
+    width: 200px;
   }
 }
