@@ -1,0 +1,44 @@
+.card {
+    border: 1px solid #e6e2e2;
+    padding: 20px;
+    width: 220px;
+    border-radius: 40px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    transition: box-shadow 300ms ease-in-out, transform 300ms ease-in-out;
+  
+    position: relative;
+
+    .plus{
+      cursor: pointer;
+    }
+  
+    &:hover{
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.239);
+      transform: translateY(-5px);
+      border: 1px solid rgb(216, 255, 144);
+    }
+  
+    .favorite {
+      position: absolute;
+      cursor: pointer;
+      top: 15px;
+      left: 11px;
+     
+    }
+  
+    .cardContent{
+      margin-left: 25px;
+      padding-right: 15px;
+    }
+  
+    h5{
+      font-weight: 400;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+  
+    b{
+      font-size: 14px;
+    }
+}

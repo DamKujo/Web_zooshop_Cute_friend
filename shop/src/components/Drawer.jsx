@@ -1,8 +1,8 @@
-export default function Drawer(){
+export default function Drawer(props){
     return(
-        <div style={{display:'none'}} className="overlay">
+        <div className="overlay">
             <div className="drawer" >
-            <h2 className="d-flex justify-between mb-30">Корзина <img className="cu-p" src="./../images/cart/btn-remove.svg" alt="Remove"/></h2>
+            <h2 className="d-flex justify-between mb-30">Корзина <img onClick={props.onClose} className="cu-p" src="./../images/cart/btn-remove.svg" alt="close"/></h2>
             
 
             <div className="Items">
