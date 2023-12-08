@@ -62,22 +62,21 @@ let items = [
 ];
 
 let cartItems = [];
-
 let favoriteItems = [];
 
 items = items.map((item, index) => ({ ...item, id: index + 1 }));
 
 app.get('/items', (req, res) => {
-  res.json(items);
+    res.json(items);
 });
 
 app.get('/cart', (req, res) => {
-  res.json(cartItems);
+    res.json(cartItems);
 });
 
 app.get('/favorite', (req, res) => {
     res.json(favoriteItems);
-  });
+});
 
 app.post('/cart', (req, res) => {
     const newItem = { ...req.body, id: cartItems.length + 1 };
@@ -92,17 +91,17 @@ app.post('/favorite', (req, res) => {
 });
 
 app.delete('/cart/:id', (req, res) => {
-  const itemId = req.params.id;
-  cartItems = cartItems.filter(item => item.id !== itemId);
-  res.json({ success: true });
+    const itemId = parseInt(req.params.id);
+    cartItems = cartItems.filter(item => item.id !== itemId);
+    res.json({ success: true });
 });
 
 app.delete('/favorite/:id', (req, res) => {
-    const itemId = req.params.id;
+    const itemId = parseInt(req.params.id);
     favoriteItems = favoriteItems.filter(item => item.id !== itemId);
     res.json({ success: true });
-  });
+});
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
