@@ -1,105 +1,105 @@
-import React from "react";
-import {Routes, Route} from "react-router-dom";
-import axios from "axios";
-import Header from "./components/Header.jsx"
-import Drawer from "./components/Drawer.jsx";
-import Home from "./pages/Home.jsx";
-import Favorites from "./pages/Favorites.jsx";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
+import Header from './components/Header';
+import Drawer from './components/Drawer';
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
+import AppContext from './context';
 
-const itemsUrl = 'http://localhost:3001/items';
-const cartUrl = 'http://localhost:3001/cart';
-const favoriteUrl = 'http://localhost:3001/favorite';
-
-
-export default function App() {
-
+function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
   const [favorites, setFavorites] = React.useState([]);
-  const[searchValue, setSearchValue] = React.useState('');
+  const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    axios.get(itemsUrl).then(res => {
-      setItems(res.data);
-    });
-    axios.get(cartUrl).then(res => {
-      setCartItems(res.data);
-    });
-    axios.get(favoriteUrl).then(res => {
-      setFavorites(res.data);
-    });
-  }, []);
+  async function fetchData(){
+    setIsLoading(true);
+    const cartResponse = await axios.get('http://localhost:3001/cart');
+    const favoritesResponse = await axios.get('http://localhost:3001/favorites');
+    const itemsResponse = await axios.get('http://localhost:3001/items');
 
-  
+    setIsLoading(false);
+    
+    setCartItems(cartResponse.data);
+    setFavorites(favoritesResponse.data);
+    setItems(itemsResponse.data);
+
+  }
+    fetchData();
+    }, []);
+
 
   const onAddToCart = (obj) => {
-    const itemInCart = cartItems.find(item => item.id === obj.id);
-    if (itemInCart) {
-      return;
+    if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
+      axios.delete(`http://localhost:3001/cart/${obj.id}`);
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
     }
-
-    axios.post(cartUrl, obj);
-    setCartItems((prev) => [...prev, obj]);
-  }
-
-  const onRemoveItem = (id) => {
-    axios.delete(`${cartUrl}/${id}`)
-    .then(() => {
-      setCartItems((prev) => prev.filter(item => item.id !== id));
-    })
-    .catch((error) => {
-      console.error('Error deleting item from cart:', error);
-    });
+    else{
+      axios.post('http://localhost:3001/cart', obj);
+      setCartItems((prev) => [...prev, obj]);
+    }
   };
 
-  const onAddToFavorite = (obj) => {
-    const itemInFavorite = favorites.find(item => item.id === obj.id);
-    if (itemInFavorite) {
-      return;
-    }
+  const onRemoveItem = (id) => {
+    axios.delete(`http://localhost:3001/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
 
-    axios.post(favoriteUrl, obj);
-    setFavorites((prev) => [...prev, obj]);
-  }
+
+  const onAddToFavorite = async (obj) => {
+    try {
+      if (favorites.find((favObj) => favObj.id === obj.id)) {
+        axios.delete(`http://localhost:3001/favorites/${obj.id}`);
+      } else {
+        const { data } = await axios.post('http://localhost:3001/favorites', obj);
+        setFavorites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert('Не удалось добавить в фавориты');
+    }
+  };
 
   const onSearchInput = (event) => {
     setSearchValue(event.target.value);
+  };
+
+  const isItemAdded = (id) => {
+    return cartItems.some(obj => Number(obj.id) === Number(id));
   }
 
   return (
-    <div className="wrapper clear">
-      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}/>} 
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite}}>
+      <div className="wrapper clear">
+      {cartOpened && (
+        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
+        )}
 
       <Header onClickCart={() => setCartOpened(true)} />
+
       <Routes>
-        <Route path={"/"} exact
-        element={
-          <Home
+        <Route path="/" element={<Home
           items={items}
+          cartItems={cartItems}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          onSearchInput={onSearchInput} 
+          onSearchInput={onSearchInput}
           onAddToFavorite={onAddToFavorite}
           onAddToCart={onAddToCart}
-          onRemoveItem={onRemoveItem}
-          cartItems={cartItems}/>
-        }>
-        </Route>
+          isLoading={isLoading}
+        />} />
+        <Route path="/favorite" element={<Favorites />} />
       </Routes>
-
-      <Routes>
-        <Route path={"/favorite"} exact
-        element={
-          <Favorites 
-            items={favorites}
-          />
-        }>
-
-        </Route>
-      </Routes>
-    
-    </div>
-  );
+      </div>
+    </AppContext.Provider>
+    );
 }
+
+export default App;
+
+
+
 
