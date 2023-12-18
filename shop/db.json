@@ -62,18 +62,6 @@
     }
   ],
   "cart": [],
-  "favorites": [
-    {
-      "id": 2,
-      "name": "Котенок Сфинкс",
-      "imageUrl": "./../images/items/cats/sfinks.jpg",
-      "price": 499
-    },
-    {
-      "id": 3,
-      "name": "Кролик Вислоухий",
-      "imageUrl": "./../images/items/rabbits/rabbit.jpg",
-      "price": 399
-    }
-  ]
+  "favorites": [],
+  "orders": []
 }

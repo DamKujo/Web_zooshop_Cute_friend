@@ -6,8 +6,9 @@ function Favorites() {
   const {favorites, onAddToFavorite}= React.useContext(AppContext);
   return (
     <div className="content p-40">
-      <div className="d-flex align-center justify-between mb-40">
-        <h1>Мои закладки</h1>
+      <div className="d-block align-center justify-between mb-40">
+        <h1>{favorites.length > 0 ? `Отложенные `: "Здесь пока что пусто :("}</h1>
+        <p className="opacity-6">{favorites.length > 0 ? ` `: "Пора это справлять!"}</p>
       </div>
 
       <div className="d-flex flex-wrap">

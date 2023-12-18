@@ -27,9 +27,18 @@ header {
     margin-right: 10px;
   }
 
+  .maintitle{
+    font-size: 20px;
+  }
+
   h3, 
   p{
     margin: 0;
+  }
+
+  .header_back{
+    max-width: 1080px;
+    height: 260px;
   }
 
 }
@@ -163,6 +172,11 @@ header {
 
   .greenButton{
     position: relative;
+
+    &:disabled{
+      animation: button-loading 800ms ease-in-out infinite;
+    }
+
     
     &:hover{
       img{
@@ -227,6 +241,11 @@ header {
   cursor: pointer;
   transition: .3s ease-in-out;
   
+  &:disabled{
+    background-color: #ccc !important;
+    cursor: default;
+    
+  }
 
   &:hover{
     background-color: rgb(181, 255, 135);
@@ -234,5 +253,17 @@ header {
 
   &:active{
     background: rgb(131, 251, 56);
+  }
+}
+
+@keyframes button-loading {
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0.7;
+  }
+  100%{
+    opacity: 1;
   }
 }

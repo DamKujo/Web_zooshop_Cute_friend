@@ -6,6 +6,8 @@ import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import AppContext from './context';
+import Orders from './pages/Orders';
+// import Modal from './components/Card/Modal/Modal';
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -14,6 +16,8 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
+  // const [modalActive, setModalActive] = React.useState(true);
+  
 
   React.useEffect(() => {
   async function fetchData(){
@@ -72,7 +76,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems}}>
       <div className="wrapper clear">
       {cartOpened && (
         <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
@@ -90,8 +94,13 @@ function App() {
           onAddToFavorite={onAddToFavorite}
           onAddToCart={onAddToCart}
           isLoading={isLoading}
+          // modalActive={modalActive}
+          // setModalActive={setModalActive}
         />} />
+        {/* <Route path='/' element={}></Route> */}
         <Route path="/favorite" element={<Favorites />} />
+
+        <Route path="/orders" element={<Orders />} />
       </Routes>
       </div>
     </AppContext.Provider>

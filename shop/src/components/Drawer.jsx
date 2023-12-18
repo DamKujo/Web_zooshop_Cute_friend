@@ -1,4 +1,32 @@
+import React, {useState} from "react";
+import Info from "./Info";
+import {useCart} from "../hooks/uscCart";
+import axios from "axios";
+
 export default function Drawer({onClose, onRemove, items= []}){
+    const {cartItems, setCartItems, totalPrice} = useCart();
+    const [orderId, setOrderId] = useState(null);
+    const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+
+    const onClickOrder = async() => {
+        try{
+            setIsLoading(true);
+            const productId = cartItems.map((item) => Number(item.id));
+            const {data} = await axios.post('http://localhost:3001/orders', {productId});
+            setOrderId(data.id);
+            setIsOrderComplete(true);
+            setCartItems([]);
+            cartItems.forEach(async (item) => {
+                await axios.delete(`http://localhost:3001/cart/${item.id}`);
+            });
+        }catch(error){
+            alert('Не удалось оформить заказ. Повторите попытку позже.')
+        }
+        setIsLoading(false);
+    }
+
     return(
         <div className="overlay">
             <div className="drawer" >
@@ -7,7 +35,7 @@ export default function Drawer({onClose, onRemove, items= []}){
 
             {
                 items.length > 0 ? (
-                    <div className="">
+                    <div className="d-flex flex-column flex">
                         <div className="Items">
                         {
                             items.map((obj) =>(
@@ -29,26 +57,24 @@ export default function Drawer({onClose, onRemove, items= []}){
                             <li> 
                             <span>Итого:</span>
                             <div></div>
-                            <b>$ 1198</b>
+                            <b>$ {totalPrice}</b>
                             </li>
                             <li>
                             <span>Комиссия 3%</span>
                             <div></div>
-                            <b>$ 35,94</b>
+                            <b>$ {Math.round(totalPrice * 0.03)}</b>
                             </li>
-                            <button className="greenButton">Оформить заказ<img src="./../images/cart/arrow.svg"/></button>
+                            <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить заказ<img src="./../images/cart/arrow.svg"/></button>
                         </ul>
                         </div>
                     </div>
                 ): (
-                <div className={"cartEmpty d-flex align-center justify-center flex-column flex"}>
-                    <img className="mb-20" width={120} height={120} src="./../images/cart/empty-cart.svg" alt="" />
-                    <h2>Корзина пустая :(</h2>
-                    <p className="opacity-6">Добавьте хотя бы один товар, чтобы сделать заказ</p>
-                    <button onClick={onClose} className="greenButton">
-                        <img src="./../images/cart/arrow.svg" alt="" /> Вернуться назад
-                    </button>
-                </div>)
+                <Info 
+                name={isOrderComplete ? "Заказ оформлен" : "Корзина пуста"}
+                description={isOrderComplete ? `Ваш заказ #${orderId} отправлен на сборку. Ваши питомцы будут ждать вас в нашем магазине`: "Добавьте хотя бы один товар, чтобы сделать заказ"}
+                image={isOrderComplete ? "./../images/cart/complete-order.svg": "./../images/cart/empty-cart.svg"}
+                />
+                )
 
             }
 
