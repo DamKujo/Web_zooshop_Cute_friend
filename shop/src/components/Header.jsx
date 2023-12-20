@@ -21,7 +21,7 @@ export default function Header(props){
                 </div>
                 </Link>
                     <ul className="d-flex">
-                    <li onClick={props.onClickCart} className="mr-30">
+                    <li onClick={props.onClickCart} className="mr-30 cu-p">
                         <img width={18} height={18} src="./../images/box.svg"/>
                         <span>{totalPrice ? `$ ${totalPrice}` : null}</span>
                     </li>
@@ -29,7 +29,7 @@ export default function Header(props){
                         <Link to={"/favorite"}><img width={18} height={18} src="./../images/heart.svg" alt="Избранное"/></Link>
                     </li>
                     <li>
-                        <img width={18} height={18} src="./../images/user.svg"/>
+                        <Link to={"/orders"}><img width={18} height={18} src="./../images/user.svg" alt="Пользователь"/></Link>
                     </li>
                     </ul>
             </div>

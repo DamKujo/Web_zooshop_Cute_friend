@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import Info from "./Info";
-import {useCart} from "../hooks/uscCart";
+import Info from "./../Info";
+import { useCart } from "../../hooks/uscCart";
 import axios from "axios";
+import styles from "./Drawer.module.scss";
 
-export default function Drawer({onClose, onRemove, items= []}){
+export default function Drawer({onClose, onRemove, items= [], opened}){
     const {cartItems, setCartItems, totalPrice} = useCart();
     const [orderId, setOrderId] = useState(null);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
@@ -13,8 +14,8 @@ export default function Drawer({onClose, onRemove, items= []}){
     const onClickOrder = async() => {
         try{
             setIsLoading(true);
-            const productId = cartItems.map((item) => Number(item.id));
-            const {data} = await axios.post('http://localhost:3001/orders', {productId});
+            const productIds = cartItems.map((item) => Number(item.id));
+            const {data} = await axios.post('http://localhost:3001/orders', {productIds});
             setOrderId(data.id);
             setIsOrderComplete(true);
             setCartItems([]);
@@ -28,8 +29,8 @@ export default function Drawer({onClose, onRemove, items= []}){
     }
 
     return(
-        <div className="overlay">
-            <div className="drawer" >
+        <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ""}`}>
+            <div className={styles.drawer} >
             <h2 className="d-flex justify-between mb-30">Корзина <img onClick={onClose} className="cu-p" src="./../images/cart/btn-remove.svg" alt="close"/></h2>
 
 

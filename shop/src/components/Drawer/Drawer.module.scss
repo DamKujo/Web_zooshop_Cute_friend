@@ -1,0 +1,66 @@
+ .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+}
+
+.overlayVisible {
+    visibility: visible;
+    opacity: 1;
+
+    .drawer {
+        transform: translateX(0);
+    }
+}
+
+.drawer {
+    display: flex;
+    position: absolute;
+    width: 385px;
+    height: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: -10px 4px 24px rgba(0, 0,0, 0.1); 
+    padding: 30px;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 500ms ease-in-out;
+  
+    .box{
+      position: absolute;
+      width: 385px;
+      height: 100%;
+      right: 0;
+      background-color: #fff;
+      box-shadow: -10px 4px 24px rgba(0, 0,0, 0.1); 
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .Items{
+      overflow: auto;
+      margin-bottom: 40px;
+    }
+  
+  
+    h2{
+      margin: 0;
+      font-size: 24px;
+  
+      
+    }
+  
+    .Items{
+      flex: 1;
+    }
+}
+
