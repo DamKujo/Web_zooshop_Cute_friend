@@ -4,60 +4,70 @@
       "name": "Щенок Корги",
       "price": 599,
       "imageUrl": "./../images/items/dogs/korgi.avif",
+      "desc": "Вельш-корги пемброк – удивительная собака, любимая порода Ее Величества королевы Великобритании Елизаветы ІІ, маленькая овчарка с большим и бесстрашным сердцем.",
       "id": 1
     },
     {
       "name": "Котенок Сфинкс",
       "price": 499,
       "imageUrl": "./../images/items/cats/sfinks.jpg",
+      "desc": "Канадский сфинкс – питомец, который никого не оставляет равнодушным благодаря своей необычной внешности. Кто-то считает их неприятными и даже отталкивающими, а кто-то просто не чает души в этих «неземных» существах.",
       "id": 2
     },
     {
       "name": "Кролик Вислоухий",
       "price": 399,
       "imageUrl": "./../images/items/rabbits/rabbit.jpg",
+      "desc": "Вислоухий кролик или вислоухий кролик относится к любому кролику с опущенными ушами, в отличие от того, что его несут вертикально. Для ряда пород кроликов (перечисленных ниже) характерны такие вислоухие уши.",
       "id": 3
     },
     {
       "name": "Щенок Овчарка",
       "price": 599,
       "imageUrl": "./../images/items/dogs/ovcharka.jpg",
+      "desc": "Щенок овчарка",
       "id": 4
     },
     {
       "name": "Хомяк",
       "price": 99,
       "imageUrl": "./../images/items/hamster/hamster.jpg",
+      "desc": "Хомяк",
       "id": 5
     },
     {
       "name": "Марштышка",
       "price": 899,
       "imageUrl": "./../images/items/monkey/monkey.jpg",
+      "desc": "Обезьяна",
       "id": 6
     },
     {
       "name": "Котенок Мейн-кун",
       "price": 699,
       "imageUrl": "./../images/items/cats/mejnkun.jpg",
+      "desc": "Мей-мей",
       "id": 7
     },
     {
       "name": "Котенок Бурма",
       "price": 799,
       "imageUrl": "./../images/items/cats/burma.jpg",
+      "desc": "Бурма?",
       "id": 8
     },
     {
       "name": "Щенок Хаски",
       "price": 599,
       "imageUrl": "./../images/items/dogs/haski.jpg",
+      "desc": "Хаски",
       "id": 9
     },
     {
       "name": "Щенок Американский стаф",
       "price": 699,
       "imageUrl": "./../images/items/dogs/americ.jpg",
+      "desc": "Уууу старшно",
       "id": 10
     }
   ],

@@ -1,23 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ContentLoader from "react-content-loader";
+import { CardModal } from '../CardModal/CardModal';
 import styles from './Card.module.scss';
 import AppContext from "../../context";
-// import Modal from './Modal/Modal';
+
+
 
 function Card({
   id,
   name,
   imageUrl,
+  desc,
   price,
   onFavorite,
   onPlus,
   favorited = false,
   loading= false
-  // modalActive,
-  // setModalActive
 }) {
   const {isItemAdded} =React.useContext(AppContext);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
   
   
 
@@ -57,7 +59,7 @@ function Card({
       <div className="d-flex flex-column">
         <span>Цена:</span>
         <b>$ {price}</b>
-         {/* <button type='button' onClick={() => setModalActive(true)}>Подробнее</button> */}
+         <button type='button' onClick={() => setModalIsOpen(true)}>Подробнее</button>
       </div>
       <img
         className={styles.plus}
@@ -68,8 +70,19 @@ function Card({
     </div>
     </>
       }
-      {/* <Modal active={modalActive} setActive={setModalActive}></Modal> */}
     </div>
+    <CardModal
+    isOpen={modalIsOpen}
+    onClose={() => setModalIsOpen(false)}
+    >
+      <h3>{name}</h3>
+      <img width={200} height={250} src={imageUrl}/>
+      <p>{desc}</p>
+      <b>$ {price}</b>
+      <div className={styles.favorite} onClick={onClickFavorite} >
+        <img src={isFavorite ? './../images/heart-like.svg' : './../images/heart-unlike.svg'} alt="Unliked" />
+    </div>
+    </CardModal>
     
     </>
     

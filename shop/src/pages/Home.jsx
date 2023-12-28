@@ -10,7 +10,8 @@ function Home({
   onSearchInput,
   onAddToFavorite,
   onAddToCart,
-  isLoading
+  isLoading,
+  onShowItem
 }) {
 
 
@@ -22,11 +23,17 @@ const renderItems = ()=>{
   return (isLoading ? [...Array(8)] : filtredItems).map((item, index) => (
     <Card
       key={index}
+      onShowItem={onShowItem}
       onFavorite={(obj) => onAddToFavorite(obj)}
       onPlus={(obj) => onAddToCart(obj)}
       loading={isLoading}
+      item={item}
       {...item}
     />
+    
+    
+    
+    
     ));
 };
 

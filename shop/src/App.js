@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header';
@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import AppContext from './context';
 import Orders from './pages/Orders';
-// import Modal from './components/Card/Modal/Modal';
+
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -16,7 +16,7 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [modalActive, setModalActive] = React.useState(true);
+
   
 
   React.useEffect(() => {
@@ -81,6 +81,7 @@ function App() {
   return cartItems.some(obj => Number(obj.id) === Number(id));
   }
 
+
   return (
     <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart}}>
       <div className="wrapper clear">
@@ -99,10 +100,7 @@ function App() {
           onAddToFavorite={onAddToFavorite}
           onAddToCart={onAddToCart}
           isLoading={isLoading}
-          // modalActive={modalActive}
-          // setModalActive={setModalActive}
         />} />
-        {/* <Route path='/' element={}></Route> */}
         <Route path="/favorite" element={<Favorites />} />
 
         <Route path="/orders" element={<Orders />} />
