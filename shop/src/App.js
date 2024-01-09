@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import AppContext from './context';
 import Orders from './pages/Orders';
+import AuthRootComponent from './pages/auth';
 
 
 function App() {
@@ -101,6 +102,10 @@ function App() {
           onAddToCart={onAddToCart}
           isLoading={isLoading}
         />} />
+
+        <Route path='/login' element={<AuthRootComponent />}/>
+        <Route path='/register' element={<AuthRootComponent />}/>
+
         <Route path="/favorite" element={<Favorites />} />
 
         <Route path="/orders" element={<Orders />} />

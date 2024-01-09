@@ -73,5 +73,14 @@
   ],
   "cart": [],
   "favorites": [],
-  "orders": []
+  "orders": [],
+  "users":[
+    {
+      "login":"firstman",
+      "password":"123b123b5",
+      "email":"first@mail.ru",
+      "firstname":"Первый",
+      "secondname":"Человек"
+    }
+  ]
 }

@@ -59,7 +59,7 @@ function Card({
       <div className="d-flex flex-column">
         <span>Цена:</span>
         <b>$ {price}</b>
-         <button type='button' onClick={() => setModalIsOpen(true)}>Подробнее</button>
+         <button className={styles.btn} type='button' onClick={() => setModalIsOpen(true)}>Подробнее</button>
       </div>
       <img
         className={styles.plus}
@@ -77,11 +77,19 @@ function Card({
     >
       <h3>{name}</h3>
       <img width={200} height={250} src={imageUrl}/>
-      <p>{desc}</p>
-      <b>$ {price}</b>
-      <div className={styles.favorite} onClick={onClickFavorite} >
-        <img src={isFavorite ? './../images/heart-like.svg' : './../images/heart-unlike.svg'} alt="Unliked" />
-    </div>
+      <p className='block_desc'>{desc}</p>
+      <div className='d-flex justify-between align-center'> 
+        <b>$ {price}</b>
+        <div className="block_btn" onClick={onClickFavorite} >
+          <img className="favotite_btn" src={isFavorite ? './../images/heart-like.svg' : './../images/heart-unlike.svg'} alt="Unliked" />
+          <img
+          className="cart_btn"
+          onClick={onClickPlus}
+          src={isItemAdded(id) ? './../images/btn-checked.svg' : './../images/btn-plus.svg'}
+          alt="Plus"
+          />
+        </div>
+      </div>
     </CardModal>
     
     </>

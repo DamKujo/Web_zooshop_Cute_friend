@@ -56,4 +56,31 @@
     b{
       font-size: 14px;
     }
+
+    .btn{
+      width: 120px;
+      height: 25px;
+      border: 2px solid rgb(157, 255, 96);
+      border-radius: 10px;
+      background-color: #fff;
+      color: #333;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s ease-in-out;
+      
+      &:disabled{
+        background-color: #ccc !important;
+        cursor: default;
+        
+      }
+
+      &:hover{
+        background-color: rgb(181, 255, 135);
+      }
+
+      &:active{
+        background: rgb(131, 251, 56);
+      }
+    }
 }
