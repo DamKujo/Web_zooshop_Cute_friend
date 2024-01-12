@@ -4,7 +4,6 @@ import LoginPage from "./login";
 import RegisterPage from "./registr";
 
 const AuthRootComponent = () => {
-    // const [login, setLogin] = React.useState('');
     
     const location = useLocation();
 
