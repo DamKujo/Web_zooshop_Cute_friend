@@ -9,7 +9,7 @@ import AppContext from './context';
 import Orders from './pages/Orders';
 // import AuthRootComponent from './pages/auth';
 import LoginPage from './pages/auth/login';
-
+import RegisterPage from './pages/auth/registr';
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -18,8 +18,7 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-
-  
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
   async function fetchData(){
@@ -39,32 +38,25 @@ function App() {
       alert("Ошибка, повторите позже");
       console.log(error);
     }
-
   }
     fetchData();
     }, []);
 
-
   const onAddToCart = (obj) => {
- 
-  if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
-    axios.delete(`http://localhost:3001/cart/${obj.id}`);
-    setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
+    if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
+      axios.delete(`http://localhost:3001/cart/${obj.id}`);
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
+    }
+    else{
+      axios.post('http://localhost:3001/cart', obj);
+      setCartItems((prev) => [...prev, obj]);
+    }
   }
-  else{
-    axios.post('http://localhost:3001/cart', obj);
-    setCartItems((prev) => [...prev, obj]);
-  }
-  
-  
-  }
-
 
   const onRemoveItem = (id) => {
     axios.delete(`http://localhost:3001/cart/${id}`);
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
-
 
   const onAddToFavorite = async (obj) => {
     if (favorites.find((favObj) => favObj.id === obj.id)) {
@@ -83,15 +75,11 @@ function App() {
   return cartItems.some(obj => Number(obj.id) === Number(id));
   }
 
-
   return (
     <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
-
-
       <Header onClickCart={() => setCartOpened(true)} />
-
       <Routes>
         <Route path="/" element={<Home
           items={items}
@@ -103,21 +91,14 @@ function App() {
           onAddToCart={onAddToCart}
           isLoading={isLoading}
         />} />
-
-        <Route path='/login' element={<LoginPage/>}/>
-        {/* <Route path='/register' element={<AuthRootComponent />}/> */}
-
+        
+        <Route exact path='/login' element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path='/register' element={<RegisterPage />}/>
         <Route path="/favorite" element={<Favorites />} />
-
         <Route path="/orders" element={<Orders />} />
       </Routes>
       </div>
     </AppContext.Provider>
     );
 }
-
 export default App;
-
-
-
-

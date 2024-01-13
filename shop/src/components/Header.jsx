@@ -29,7 +29,7 @@ export default function Header(props){
                         <Link to={"/favorite"}><img width={18} height={18} src="./../images/heart.svg" alt="Избранное"/></Link>
                     </li>
                     <li>
-                        <Link to={"/orders"}><img width={18} height={18} src="./../images/user.svg" alt="Пользователь"/></Link>
+                        <Link to={"/login"}><img width={18} height={18} src="./../images/user.svg" alt="Пользователь"/></Link>
                     </li>
                     </ul>
             </div>

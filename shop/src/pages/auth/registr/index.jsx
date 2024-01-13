@@ -1,5 +1,7 @@
 import React from "react";
 import "./registr.css";
+import { Link } from "react-router-dom";
+import LoginPage from "../login";
 
 const RegisterPage = () => {
     return(
@@ -16,7 +18,7 @@ const RegisterPage = () => {
                     <input placeholder="Login"type="text"/>
                     <input placeholder="Password"type="password" required/>
                     <button type="button"><span className="cat-paw">Регистрация <img width={20} src="./../images/cat-paw.png"/></span></button>
-                    <p>Так у вас уже есть аккаунт? <a href="">Авторизация</a></p>
+                    <p>Так у вас уже есть аккаунт? <Link to={'/login'}><b>Авторизация</b></Link></p>
                 </form>
             </div>
             
