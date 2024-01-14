@@ -2,24 +2,24 @@ import React from "react";
 import "./login.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AppContext from "../../../context";
+import { useNavigate } from 'react-router-dom';
 
 
-function LoginPage({setIsLoggedIn}) {
-    const [login, setLogin] = React.useState("");
-    const [password, setPassword] = React.useState("");
+function LoginPage() {
+  const navigate = useNavigate();
+  const {isLoggedIn, setIsLoggedIn} = React.useContext(AppContext);
+  const [login, setLogin] = React.useState("");
+  const [password, setPassword] = React.useState("");
   
-    const handleLogin = async () => {
-      // Add your login logic here, such as calling an API to authenticate the user
+    const handleLogIn = async (e) => {
       try {
-        // Example: make a POST request to authenticate the user
-        const response = await axios.post('http://localhost:3000/login', {
-          login: login,
-          password: password,
-        });
-        
-        // Handle the response, such as setting isLoggedIn state based on the authentication result
+        e.preventDefault();
         setIsLoggedIn(true);
-        
+        navigate('/');
+        console.log(login);
+        console.log(password);
+        console.log(setIsLoggedIn);
       } catch (error) {
         alert("Login failed. Please try again.");
         console.log(error);
@@ -33,10 +33,10 @@ function LoginPage({setIsLoggedIn}) {
                 <h3>Чтобы продолжить работу на сайте, введите ваш логин и пароль</h3>
             </div>
             <div className="main_form">
-                <form >
+                <form onSubmit={handleLogIn}>
                     <input placeholder="Login" type="text" value={login} onChange={(e) => setLogin(e.target.value)}/>
                     <input placeholder="Password" type="password" value={password} required onChange={(e) => setPassword(e.target.value)}/>
-                    <button onClick={handleLogin}><span className="cat-paw">Войти <img width={20} src="./../images/cat-paw.png"/></span></button>
+                    <button type="submit"><span className="cat-paw">Войти <img width={20} src="./../images/cat-paw.png"/></span></button>
                     <p>Оу, вы еще не создали аккаунт? <Link to={ '/register'}><b>Регистрация</b></Link></p>
                 </form>
             </div>

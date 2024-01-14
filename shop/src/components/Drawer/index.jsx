@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Info from "./../Info";
 import { useCart } from "../../hooks/uscCart";
 import axios from "axios";
 import styles from "./Drawer.module.scss";
+import AppContext from "../../context";
 
 export default function Drawer({onClose, onRemove, items= [], opened}){
+    const {isLoggedIn} = useContext(AppContext);
     const {cartItems, setCartItems, totalPrice} = useCart();
     const [orderId, setOrderId] = useState(null);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
@@ -29,13 +31,16 @@ export default function Drawer({onClose, onRemove, items= [], opened}){
     }
 
     return(
+       
         <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ""}`}>
             <div className={styles.drawer} >
             <h2 className="d-flex justify-between mb-30">Корзина <img onClick={onClose} className="cu-p" src="./../images/cart/btn-remove.svg" alt="close"/></h2>
 
-
             {
-                items.length > 0 ? (
+                isLoggedIn ?
+                <>
+                    {
+                    items.length > 0 ? (
                     <div className="d-flex flex-column flex">
                         <div className="Items">
                         {
@@ -69,15 +74,25 @@ export default function Drawer({onClose, onRemove, items= [], opened}){
                         </ul>
                         </div>
                     </div>
-                ): (
-                <Info 
-                name={isOrderComplete ? "Заказ оформлен" : "Корзина пуста"}
-                description={isOrderComplete ? `Ваш заказ #${orderId} отправлен на сборку. Ваши питомцы будут ждать вас в нашем магазине`: "Добавьте хотя бы один товар, чтобы сделать заказ"}
-                image={isOrderComplete ? "./../images/cart/complete-order.svg": "./../images/cart/empty-cart.svg"}
-                />
-                )
+                        ): (
+                        <Info 
+                        name={isOrderComplete ? "Заказ оформлен" : "Корзина пуста"}
+                        description={isOrderComplete ? `Ваш заказ #${orderId} отправлен на сборку. Ваши питомцы будут ждать вас в нашем магазине`: "Добавьте хотя бы один товар, чтобы сделать заказ"}
+                        image={isOrderComplete ? "./../images/cart/complete-order.svg": "./../images/cart/empty-cart.svg"}
+                    />
+                    )
 
+                    }
+                </> : 
+                <>
+                    <Info 
+                    name={"Вы не авторизированы"}
+                    description={"Чтобы выполнить заказ, необходимо авторизироваться."}
+                    image={"./../images/cart/notauth.png"}
+                    />
+                </>
             }
+            
 
             </div>
         </div>

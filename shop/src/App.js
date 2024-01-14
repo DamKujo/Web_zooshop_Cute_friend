@@ -76,10 +76,10 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
-      <Header onClickCart={() => setCartOpened(true)} />
+      <Header onClickCart={() => setCartOpened(true)}/>
       <Routes>
         <Route path="/" element={<Home
           items={items}
@@ -92,7 +92,7 @@ function App() {
           isLoading={isLoading}
         />} />
         
-        <Route exact path='/login' element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route exact path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />}/>
         <Route path="/favorite" element={<Favorites />} />
         <Route path="/orders" element={<Orders />} />

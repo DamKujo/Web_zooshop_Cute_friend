@@ -17,14 +17,14 @@ function Card({
   favorited = false,
   loading= false
 }) {
-  const {isItemAdded} =React.useContext(AppContext);
+  const {isItemAdded, isLoggedIn} =React.useContext(AppContext);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   
   
 
   const onClickPlus = () => {
-    onPlus({ id,name, imageUrl, price });
+    isLoggedIn ? onPlus({ id,name, imageUrl, price }) : alert('Чтобы добавить товар в корзину, авторизируйтесь на сайте.');
   };
 
   const onClickFavorite = () => {
