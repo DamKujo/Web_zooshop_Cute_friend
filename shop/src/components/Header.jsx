@@ -10,6 +10,7 @@ export default function Header(props){
     const navigate = useNavigate();
 
     const handleLogOut = () => {
+        localStorage.setItem('isLoggedIn', false);
         setIsLoggedIn(false);
         navigate('/login');
     }
@@ -22,6 +23,7 @@ export default function Header(props){
                 isLoggedIn ? 
                 <>
                     <div className="d-flex justify-between align-center p-40">
+                        
                         <Link to={"/"}>
                             <div className="d-flex alig-center">
                                 
@@ -43,6 +45,7 @@ export default function Header(props){
                         </li>
                         <li className="mr-15 cu-p">
                             <Link to={"/orders"}><img width={18} height={18} src="./../images/user.svg" alt="Пользователь"/></Link>
+                            
                         </li>
                         <li className="mr-15 cu-p">
                             <img onClick={handleLogOut} width={22} height={22} src="./../images/auth/esclogin.png" alt="Выйти"/>

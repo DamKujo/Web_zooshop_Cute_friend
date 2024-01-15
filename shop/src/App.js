@@ -10,15 +10,19 @@ import Orders from './pages/Orders';
 // import AuthRootComponent from './pages/auth';
 import LoginPage from './pages/auth/login';
 import RegisterPage from './pages/auth/registr';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate();
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
   const [favorites, setFavorites] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn') === "true");
+  const [userName, setUserName] = React.useState('');
+  const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
   async function fetchData(){
@@ -28,12 +32,15 @@ function App() {
       const cartResponse = await axios.get('http://localhost:3001/cart');
       const favoritesResponse = await axios.get('http://localhost:3001/favorites');
       const itemsResponse = await axios.get('http://localhost:3001/items');
+      const usersResponse = await axios.get('http://localhost:3001/users');
+      
 
       setIsLoading(false);
       
       setCartItems(cartResponse.data);
       setFavorites(favoritesResponse.data);
       setItems(itemsResponse.data);
+      setUsers(usersResponse.data);
     } catch (error) {
       alert("Ошибка, повторите позже");
       console.log(error);
@@ -41,6 +48,26 @@ function App() {
   }
     fetchData();
     }, []);
+
+
+  const usersLogIn = async (obj) => {
+    try{
+      if(users.find((item) => item.login === obj.login)){
+        // await axios.post(`http://localhost:3001/users`, obj);
+        localStorage.setItem('isLoggedIn', true);
+        setIsLoggedIn(true);
+        navigate('/');
+      }
+      else {
+        setIsLoggedIn(false);
+        alert('Такого пользователя не существует, перейдите в раздел регистрации.')
+      } 
+    } catch (error){
+      alert('Ошибка авторизации');
+      console.log(error);
+    }
+    
+  }
 
   const onAddToCart = (obj) => {
     if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
@@ -76,7 +103,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, userName, setUserName, usersLogIn}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
       <Header onClickCart={() => setCartOpened(true)}/>

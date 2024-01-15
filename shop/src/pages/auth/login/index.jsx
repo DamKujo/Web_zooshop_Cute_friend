@@ -8,18 +8,20 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const {isLoggedIn, setIsLoggedIn} = React.useContext(AppContext);
+  const {setUserName, usersLogIn} = React.useContext(AppContext);
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const userData = {
+    login,
+    password
+  }
   
     const handleLogIn = async (e) => {
       try {
         e.preventDefault();
-        setIsLoggedIn(true);
-        navigate('/');
-        console.log(login);
-        console.log(password);
-        console.log(setIsLoggedIn);
+        usersLogIn(userData);
+        setUserName(login);
       } catch (error) {
         alert("Login failed. Please try again.");
         console.log(error);

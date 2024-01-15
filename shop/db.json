@@ -79,8 +79,8 @@
       "login": "firstman",
       "password": "123b123b5",
       "email": "first@mail.ru",
-      "firstname": "Первый",
-      "secondname": "Человек",
+      "firstName": "Первый",
+      "lastName": "Человек",
       "id": "1"
     }
   ]
