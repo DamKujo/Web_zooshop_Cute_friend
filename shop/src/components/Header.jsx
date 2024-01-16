@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header(props){
     const {totalPrice} = useCart();
-    const {isLoggedIn, setIsLoggedIn} = useContext(AppContext);
+    const {isLoggedIn, setIsLoggedIn, youIsAdmin} = useContext(AppContext);
     const navigate = useNavigate();
 
     const handleLogOut = () => {
@@ -44,7 +44,7 @@ export default function Header(props){
                             <Link to={"/favorite"}><img width={18} height={18} src="./../images/heart.svg" alt="Избранное"/></Link>
                         </li>
                         <li className="mr-15 cu-p">
-                            <Link to={"/orders"}><img width={18} height={18} src="./../images/user.svg" alt="Пользователь"/></Link>
+                            <img onClick={youIsAdmin} width={18} height={18} src="./../images/user.svg" alt="Пользователь"/>
                             
                         </li>
                         <li className="mr-15 cu-p">

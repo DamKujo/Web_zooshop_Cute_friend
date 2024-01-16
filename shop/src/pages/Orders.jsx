@@ -4,7 +4,7 @@ import axios from "axios";
 import AppContext from "../context";
 import "./../index.scss"; 
 export default function Orders() {
-  const { onAddToCart, onAddToFavorite } = React.useContext(AppContext);
+  const { onAddToCart, onAddToFavorite} = React.useContext(AppContext);
   const [orders, setOrders] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 

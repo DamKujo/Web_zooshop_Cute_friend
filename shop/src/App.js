@@ -7,10 +7,11 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import AppContext from './context';
 import Orders from './pages/Orders';
-// import AuthRootComponent from './pages/auth';
 import LoginPage from './pages/auth/login';
 import RegisterPage from './pages/auth/registr';
 import { useNavigate } from 'react-router-dom';
+import PersonalCabinet from './pages/cabinet/PersonalCabinet';
+import AdminCabinet from './pages/cabinet/AdminCabinet';
 
 function App() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn') === "true");
   const [userName, setUserName] = React.useState('');
   const [users, setUsers] = React.useState([]);
+  const [userLive, setUserLive] = React.useState(null);
 
   React.useEffect(() => {
   async function fetchData(){
@@ -53,7 +55,6 @@ function App() {
   const usersLogIn = async (obj) => {
     try{
       if(users.find((item) => item.login === obj.login)){
-        // await axios.post(`http://localhost:3001/users`, obj);
         localStorage.setItem('isLoggedIn', true);
         setIsLoggedIn(true);
         navigate('/');
@@ -66,8 +67,38 @@ function App() {
       alert('Ошибка авторизации');
       console.log(error);
     }
-    
+  };
+
+  const usersRegIn = async (obj) => {
+    try{
+      if(users.find((item) => item.login === obj.login)){
+        alert('Пользователь с таким логином уже зарегестрирован');
+      }
+      else if(users.find((item) => item.email === obj.email)){
+        alert('Пользователь с таким email уже зарегистрирован.');
+      }
+      else{
+        axios.post(`http://localhost:3001/users`, obj);
+        localStorage.setItem('isLoggedIn', true);
+        setIsLoggedIn(true);
+        navigate('/');
+        alert(`Добро пожаловать, ${obj.firstName} ${obj.lastName}`);
+      }
+    }catch(error) {
+      alert('Ошибка регистрации, повторите позже!');
+      console.log(error);
+    }
   }
+
+  // const youIsAdmin = (obj) => {
+  //   if(users.item.find(({isAdmin}) => isAdmin !== true)){
+  //     navigate('/personal');
+  //     console.log(users)
+  //   }
+  //   else{
+  //     navigate('/admin');
+  //   }
+  // }
 
   const onAddToCart = (obj) => {
     if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
@@ -103,7 +134,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, userName, setUserName, usersLogIn}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, userName, setUserName, usersLogIn, usersRegIn}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
       <Header onClickCart={() => setCartOpened(true)}/>
@@ -120,7 +151,9 @@ function App() {
         />} />
         
         <Route exact path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />}/>
+        <Route exact path='/register' element={<RegisterPage />}/>
+        <Route exact path='/personal' element={<PersonalCabinet />}/>
+        <Route exact path='/admin' element={<AdminCabinet />}/>
         <Route path="/favorite" element={<Favorites />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>

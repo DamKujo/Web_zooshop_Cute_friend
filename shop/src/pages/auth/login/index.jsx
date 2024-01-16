@@ -1,6 +1,5 @@
 import React from "react";
 import "./login.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import AppContext from "../../../context";
 import { useNavigate } from 'react-router-dom';

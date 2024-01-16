@@ -81,7 +81,16 @@
       "email": "first@mail.ru",
       "firstName": "Первый",
       "lastName": "Человек",
-      "id": "1"
+      "id": 1,
+      "isAdmin": true
+    },
+    {
+      "login": "DamKujo",
+      "password": "123bb555",
+      "email": "jojoonelove@list.ru",
+      "lastName": "Kujo",
+      "firstName": "Damir",
+      "id": 2
     }
   ]
 }
