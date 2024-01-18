@@ -1,21 +1,22 @@
-import React from "react";
-import "./personalcabinet.css";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import UserData from "../../components/UserData";
+import styles from "./Cabinets.module.scss";
 
 export default function PersonalCabinet(){
     return(
         <>
-        <div className="main">
-            <div className="personal_data">
+            
+            <div className={styles.main}>
+            <div className={styles.personal_data}>
                 <h1>Мои данные</h1>
-                <p>Имя:</p>
-                <p>Фамилия:</p>
-                <p>email:</p>
-                <p>Логин:</p>
-                <p>Пароль:</p>
+                <UserData />
             </div>
-            <div className="personal_orders">
-                <h3>Мои заказы</h3>
+            <div className={styles.personal_orders}>
+                <Link to={'/orders'}><h3>Мои заказы</h3>
+                <img width={100} height={100} src="./../images/auth/orders.png" alt="Заказы"/>
+                </Link>
+
             </div>
         </div>
         </>

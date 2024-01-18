@@ -22,9 +22,8 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoggedIn, setIsLoggedIn] = React.useState(localStorage.getItem('isLoggedIn') === "true");
-  const [userName, setUserName] = React.useState('');
   const [users, setUsers] = React.useState([]);
-  const [userLive, setUserLive] = React.useState(null);
+  const [userLive, setUserLive] = React.useState(localStorage.getItem('userLive'));
 
   React.useEffect(() => {
   async function fetchData(){
@@ -55,9 +54,16 @@ function App() {
   const usersLogIn = async (obj) => {
     try{
       if(users.find((item) => item.login === obj.login)){
-        localStorage.setItem('isLoggedIn', true);
         setIsLoggedIn(true);
-        navigate('/');
+        localStorage.setItem('isLoggedIn', true);
+        setUserLive(obj.login);
+        localStorage.setItem('userLive', obj.login);
+        if(obj.login === 'firstman'){
+          navigate('/admin')
+        }
+        else{
+          navigate('/')
+        }
       }
       else {
         setIsLoggedIn(false);
@@ -80,6 +86,8 @@ function App() {
       else{
         axios.post(`http://localhost:3001/users`, obj);
         localStorage.setItem('isLoggedIn', true);
+        setUserLive(obj.login);
+        localStorage.setItem('userLive', obj.login);
         setIsLoggedIn(true);
         navigate('/');
         alert(`Добро пожаловать, ${obj.firstName} ${obj.lastName}`);
@@ -89,16 +97,6 @@ function App() {
       console.log(error);
     }
   }
-
-  // const youIsAdmin = (obj) => {
-  //   if(users.item.find(({isAdmin}) => isAdmin !== true)){
-  //     navigate('/personal');
-  //     console.log(users)
-  //   }
-  //   else{
-  //     navigate('/admin');
-  //   }
-  // }
 
   const onAddToCart = (obj) => {
     if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
@@ -134,7 +132,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, userName, setUserName, usersLogIn, usersRegIn}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, usersLogIn, usersRegIn, userLive, users}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
       <Header onClickCart={() => setCartOpened(true)}/>
@@ -152,7 +150,8 @@ function App() {
         
         <Route exact path='/login' element={<LoginPage />} />
         <Route exact path='/register' element={<RegisterPage />}/>
-        <Route exact path='/personal' element={<PersonalCabinet />}/>
+        <Route exact path='/personal' element={<PersonalCabinet 
+        />}/>
         <Route exact path='/admin' element={<AdminCabinet />}/>
         <Route path="/favorite" element={<Favorites />} />
         <Route path="/orders" element={<Orders />} />

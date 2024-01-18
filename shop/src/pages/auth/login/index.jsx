@@ -2,12 +2,10 @@ import React from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import AppContext from "../../../context";
-import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const {setUserName, usersLogIn} = React.useContext(AppContext);
+  const {usersLogIn} = React.useContext(AppContext);
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -20,7 +18,6 @@ function LoginPage() {
       try {
         e.preventDefault();
         usersLogIn(userData);
-        setUserName(login);
       } catch (error) {
         alert("Login failed. Please try again.");
         console.log(error);

@@ -4,7 +4,7 @@ import axios from "axios";
 import AppContext from "../context";
 import "./../index.scss"; 
 export default function Orders() {
-  const { onAddToCart, onAddToFavorite} = React.useContext(AppContext);
+  const { onAddToCart, onAddToFavorite, userLive} = React.useContext(AppContext);
   const [orders, setOrders] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -23,6 +23,7 @@ export default function Orders() {
             return {
               id: order.id,
               items: products,
+              user: order.user
             };
           })
           );
@@ -35,32 +36,40 @@ export default function Orders() {
     };
 
     fetchOrders();
+    
     }, []);
+    
 
   return (
     <div className="content p-40">
       <div className="d-flex align-center justify-between mb-40">
         <h1>Мои заказы</h1>
       </div>
-
       <div className="orders-container">
-        {orders.map((order) => (
-          <div key={order.id} className="order-card">
-            <h2>Заказ #{order.id}</h2>
-            <div className="order-items-container">
-              {order.items.map((item, index) => (
-                <Card
-                  key={index}
-                  onFavorite={(obj) => onAddToFavorite(obj)}
-                  onPlus={(obj) => onAddToCart(obj)}
-                  loading={isLoading}
-                  {...item}
-                />
-              ))}
+          {orders.map((order) => (
+            <div key={order.id} className="order-card">
+              {
+                order.user === userLive ? 
+                <>
+                <h2>Заказ #DM{order.id}</h2>
+                <div className="order-items-container">
+                {order.items.map((item, index) => (
+                  <Card
+                    key={index}
+                    onFavorite={(obj) => onAddToFavorite(obj)}
+                    onPlus={(obj) => onAddToCart(obj)}
+                    loading={isLoading}
+                    {...item}
+                  />
+                ))}
+                </div>
+                </> : null
+                
+              }
             </div>
-          </div>
-        ))}
+            ))}
+        </div>
+      
       </div>
-    </div>
     );
 }

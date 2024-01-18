@@ -6,7 +6,7 @@ import styles from "./Drawer.module.scss";
 import AppContext from "../../context";
 
 export default function Drawer({onClose, onRemove, items= [], opened}){
-    const {isLoggedIn} = useContext(AppContext);
+    const {isLoggedIn, userLive} = useContext(AppContext);
     const {cartItems, setCartItems, totalPrice} = useCart();
     const [orderId, setOrderId] = useState(null);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
@@ -16,8 +16,13 @@ export default function Drawer({onClose, onRemove, items= [], opened}){
     const onClickOrder = async() => {
         try{
             setIsLoading(true);
+            const user = userLive;
             const productIds = cartItems.map((item) => Number(item.id));
-            const {data} = await axios.post('http://localhost:3001/orders', {productIds});
+            const {data} = await axios.post('http://localhost:3001/orders', {
+                productIds,
+                user
+            });
+            console.log(data);
             setOrderId(data.id);
             setIsOrderComplete(true);
             setCartItems([]);

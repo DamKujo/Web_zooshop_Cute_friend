@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header(props){
     const {totalPrice} = useCart();
-    const {isLoggedIn, setIsLoggedIn, youIsAdmin} = useContext(AppContext);
+    const {isLoggedIn, setIsLoggedIn, userLive} = useContext(AppContext);
     const navigate = useNavigate();
 
     const handleLogOut = () => {
@@ -15,6 +15,15 @@ export default function Header(props){
         navigate('/login');
     }
 
+    const youIsAdmin = () => {
+        if(userLive === 'firstman'){
+          navigate('/admin');
+        }
+        else{
+          navigate('/personal');
+        }
+    }
+    
     return(
 
         <header className="">
@@ -45,7 +54,6 @@ export default function Header(props){
                         </li>
                         <li className="mr-15 cu-p">
                             <img onClick={youIsAdmin} width={18} height={18} src="./../images/user.svg" alt="Пользователь"/>
-                            
                         </li>
                         <li className="mr-15 cu-p">
                             <img onClick={handleLogOut} width={22} height={22} src="./../images/auth/esclogin.png" alt="Выйти"/>
