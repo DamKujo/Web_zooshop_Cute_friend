@@ -257,3 +257,13 @@ header {
     opacity: 1;
   }
 }
+
+.info span {
+  font-size: 20px;
+  color: #ccc;
+  transition: .5s ease-in-out;
+}
+
+.info span:hover{
+  color: green;
+}

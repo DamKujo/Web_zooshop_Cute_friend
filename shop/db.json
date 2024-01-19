@@ -82,6 +82,17 @@
       ],
       "user": "DamKujo",
       "id": 1
+    },
+    {
+      "productIds": [
+        4,
+        3,
+        2,
+        1,
+        5
+      ],
+      "user": "RobTiger",
+      "id": 2
     }
   ],
   "users": [
@@ -108,6 +119,14 @@
       "lastName": "Ivanich",
       "firstName": "Ivan",
       "id": 3
+    },
+    {
+      "login": "RobTiger",
+      "password": "654b321n",
+      "email": "yakrytoirob@yandex.ru",
+      "lastName": "Тигр",
+      "firstName": "Роберт",
+      "id": 4
     }
   ]
 }

@@ -14,8 +14,8 @@
 
 .overlayVisible {
   position: fixed;
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 
     .drawer {
         transform: translateX(0);
@@ -23,6 +23,7 @@
 }
 
 .drawer {
+  overflow: auto;
     display: flex;
     position: absolute;
     width: 385px;
@@ -50,6 +51,7 @@
     .Items{
       overflow: auto;
       margin-bottom: 40px;
+      flex: 1;
     }
   
   
@@ -58,10 +60,6 @@
       font-size: 24px;
   
       
-    }
-  
-    .Items{
-      flex: 1;
     }
 }
 

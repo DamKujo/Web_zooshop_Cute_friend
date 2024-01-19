@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AppContext from "../context";
+import './../index.scss';
 
 function UserData () {
 
@@ -29,11 +30,11 @@ function UserData () {
     return(
 
         <>
-            <p>Имя: {userNow.firstName}</p>
-            <p>Фамилия: {userNow.lastName}</p>
-            <p>email: {userNow.email}</p>
-            <p>Логин: {userNow.login}</p>
-            <p>Пароль: {userNow.password}</p>
+            <p className="info">Имя: <span>{userNow.firstName}</span></p>
+            <p className="info">Фамилия: <span>{userNow.lastName}</span></p>
+            <p className="info">email: <span>{userNow.email}</span></p>
+            <p className="info">Логин: <span>{userNow.login}</span></p>
+            <p className="info">Пароль: <span>{userNow.password}</span></p>
         </>
     );
 }
