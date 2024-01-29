@@ -40,9 +40,9 @@ const RegisterPage = () => {
                 <form onSubmit={handleRegIn}>
                     <input placeholder="Имя" type="text" value={firstName} onChange={(e) => setUserFirstName(e.target.value)}/>
                     <input placeholder="Фамилия" type="text" value={lastName} onChange={(e) => setUserLastName(e.target.value)}/>
-                    <input placeholder="Email" type="text" value={email} onChange={(e) => setUserEmail(e.target.value)}/>
+                    <input placeholder="Email" type="email" value={email} onChange={(e) => setUserEmail(e.target.value)}/>
                     <input placeholder="Login"type="text" value={login} onChange={(e) => setUserLogin(e.target.value)}/>
-                    <input placeholder="Password"type="password" required value={password} onChange={(e) => setUserPassword(e.target.value)}/>
+                    <input placeholder="Password"type="password" required value={password} minLength={5} maxLength={10} onChange={(e) => setUserPassword(e.target.value)}/>
                     <button type="submit"><span className="cat-paw">Регистрация <img width={20} src="./../images/cat-paw.png"/></span></button>
                     <p>Так у вас уже есть аккаунт? <Link to={'/login'}><b>Авторизация</b></Link></p>
                 </form>

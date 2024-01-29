@@ -7,7 +7,6 @@ function UserData () {
 
     const {userLive} = React.useContext(AppContext);
     const [userNow, setUserNow] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         const fetchOrders = async () => {
@@ -15,7 +14,6 @@ function UserData () {
             const { data: usersData } = await axios.get('http://localhost:3001/users');
             const usersNeed = usersData.find(({login}) => login === userLive);
             setUserNow(usersNeed);
-            setIsLoading(false);
           } catch (error) {
             alert("Ошибка, повторите попытку позже");
             console.log(error);

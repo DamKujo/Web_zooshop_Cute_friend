@@ -23,6 +23,7 @@
 
 .allorders{
     width: 80%;
+    margin-left: 15px;
 }
 
 .down{
@@ -30,15 +31,55 @@
 }
 
 .button{
+    font-size: 10px;
+    color: green;
     display: block;
     margin: 20px 30px;
     padding: 7px;
     border: 1px solid #ccc;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &:hover{
+        color: #fff;
+        background-color: green;
+    }
 }
 
-.button h1{
-    font-size: 20px;
-    color: green;
+.newItems:not([type="file"]) {
+  width: 90%;
+  padding: 10px 2%;
+  font-weight: 300;
+  margin-bottom: 15px;
+  border: 0;
+  background: rgb(163, 233, 160);
+  color: #fff;
+  outline: none;
+  font-size: 15px;
+
+}
+
+.newItemsFile{
+    margin-bottom: 15px;
+}
+
+.newItemsButton{
+    width: 90%;
+    padding: 10px 2%;
+    font-weight: 300;
+    margin-bottom: 10px;
+    border: 0;
+    background: rgb(163, 233, 160);
+    color: #fff;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid rgb(163, 233, 160);
+
+    &:hover{
+        color: rgb(75, 150, 0);
+        background-color: #fff;
+    }
 }

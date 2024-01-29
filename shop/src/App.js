@@ -98,6 +98,20 @@ function App() {
     }
   }
 
+  const addNewItems = async (obj) => {
+    try{
+      if(items.find((item) => item.desc === obj.desc)){
+        alert('Ошибка добавления товара! Такой товар уже есть')
+      } else {
+        axios.post('http://localhost:3001/items', obj);
+        setItems((prev) => [...prev, obj]);
+      }
+    } catch (error) {
+      alert('error with app function');
+      console.log(error);
+    }
+  }
+
   const onAddToCart = (obj) => {
     if(cartItems.find((item) => Number(item.id) === Number(obj.id))){
       axios.delete(`http://localhost:3001/cart/${obj.id}`);
@@ -132,7 +146,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, usersLogIn, usersRegIn, userLive, users}}>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems, onAddToCart, isLoggedIn, setIsLoggedIn, usersLogIn, usersRegIn, userLive, users, addNewItems}}>
       <div className="wrapper clear">
       <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
       <Header onClickCart={() => setCartOpened(true)}/>

@@ -33,7 +33,7 @@ function LoginPage() {
             <div className="main_form">
                 <form onSubmit={handleLogIn}>
                     <input placeholder="Login" type="text" value={login} onChange={(e) => setLogin(e.target.value)}/>
-                    <input placeholder="Password" type="password" value={password} required onChange={(e) => setPassword(e.target.value)}/>
+                    <input placeholder="Password" type="password" value={password} required minLength={5} onChange={(e) => setPassword(e.target.value)}/>
                     <button type="submit"><span className="cat-paw">Войти <img width={20} src="./../images/cat-paw.png"/></span></button>
                     <p>Оу, вы еще не создали аккаунт? <Link to={ '/register'}><b>Регистрация</b></Link></p>
                 </form>
